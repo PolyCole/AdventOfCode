@@ -1,9 +1,9 @@
 # 🎄 Advent of Code
-- [🌟 2021](https://github.com/PolyCole/AdventOfCode/2021)
-- [ 2019](https://github.com/PolyCole/AdventOfCode/2019)
-- [ 2017](https://github.com/PolyCole/AdventOfCode/2017)
-- [ 2016](https://github.com/PolyCole/AdventOfCode/2016)
-- [ 2015](https://github.com/PolyCole/AdventOfCode/2015)
+- [🌟 2021](https://github.com/PolyCole/AdventOfCode/tree/main/2021)
+- [ 2019](https://github.com/PolyCole/AdventOfCode/tree/main/2019)
+- [ 2017](https://github.com/PolyCole/AdventOfCode/tree/main/2017)
+- [ 2016](https://github.com/PolyCole/AdventOfCode/tree/main/2016)
+- [ 2015](https://github.com/PolyCole/AdventOfCode/tree/main/2015)
 
 
 This repository hosts my solutions to [Advent of Code](https://adventofcode.com/). Advent of Code is an advent calendar of coding problems that happens every year beginning, with advent, on December 1st. Each problem contains two parts, and usually involves reading input, manipulating it, and outputting a value. 
