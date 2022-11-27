@@ -1,11 +1,11 @@
 import os
 
 # Author: Cole Polyak
-# X December 2021
-# Advent of Code: Day X
+# XX December 2021
+# Advent of Code: Day XX
 
 def main():
-    arr = parse_input("dayX.txt")
+    arr = parse_input("dayXX.txt")
 
 def parse_input(filename):
     file = open(f"{os.getcwd()}/{filename}", "r")
