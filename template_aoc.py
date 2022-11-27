@@ -14,42 +14,49 @@ import subprocess
 console = Console()
 
 def main():
-    print("Start")
     args = get_args()
 
-    today = datetime.date.today()
-    year = today.year
+    year = datetime.date.today().year
+    day = args.day
 
-    with console.status(f':christmas_tree: Building day {args.day} of Advent Of Code {year}') as status:
+    with console.status(f':christmas_tree: Building day {day} of Advent Of Code {year}') as status:
         cur_dir = os.getcwd()
+        year_dir = f'{cur_dir}/{year}'
+        day_dir = f'/{year_dir}/{day}'
 
+        # Creating directories
         sleep(2)
-        part_one = f'{cur_dir}/{year}'
-        if not os.path.exists(part_one):
-            os.mkdir(part_one)
-
-        desired_dir = f'{cur_dir}/{year}/{args.day}'
-        if not os.path.exists(desired_dir):
-            os.mkdir(desired_dir)
+        create_dir(year_dir)
+        create_dir(day_dir)
         console.log(f':file_folder: Created new working directory...')
 
+        # Creating working file
         sleep(2)
-        new_file_path = f'{desired_dir}/Day{args.day}.py'
-        with open(f'{cur_dir}/template.py', "rt") as fin:
-            with open(new_file_path, "wt") as fout:
-                for line in fin:
-                    fout.write(line.replace('XX', args.day))
-
+        create_working_file(cur_dir, day_dir, day)
         console.log(":page_facing_up: Created new working file...")
 
+        # Creating input file
         sleep(2)
-        input_file = open(f'{desired_dir}/day{args.day}.txt', "w")
+        input_file = open(f'{day_dir}/day{day}.txt', "w")
         console.log(":memo: Created new input file...")
 
+        # Opening in VSCode and exiting.
         sleep(2)
         console.log(console.log(":christmas_tree: Day creation complete! Happy coding :slightly_smiling_face:"))
-        subprocess.run(["code", part_one])
+        subprocess.run(["code", year_dir])
         return
+
+def create_dir(new_dir):
+    if not os.path.exists(new_dir):
+            os.mkdir(new_dir)
+
+
+def create_working_file(cur_dir, day_dir, day):
+        with open(f'{cur_dir}/template.py', "rt") as fin:
+            with open(f'{day_dir}/Day{day}.py', "wt") as fout:
+                for line in fin:
+                    fout.write(line.replace('XX', day))
+
 
 def get_args():
     parser = ArgumentParser(prog='aoc_template', description="A script to create a new template for AdventOfCode")
