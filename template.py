@@ -1,7 +1,7 @@
 import os
 
 # Author: Cole Polyak
-# XX December 2022
+# XX December 2024
 # Advent of Code: Day XX
 
 def main():
