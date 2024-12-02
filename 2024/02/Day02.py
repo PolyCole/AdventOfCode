@@ -5,8 +5,14 @@ import os
 # Advent of Code: Day 02
 
 def main():
+    global PART
+    PART = 1
     arr = parse_input("day02.txt")
+    execute(arr.copy())
+    PART = 2
+    execute(arr.copy())
 
+def execute(arr):
     count = 0
 
     for line in arr:
@@ -14,41 +20,46 @@ def main():
         split = list(map(int, split))
         count += calculate_safe(split)
         
-    print(count)
+    print(f'PART {PART} ANSWER: {count}')
 
 def calculate_safe(arr, depth=0):   
     prev = arr[0]
 
     # 0 -- neutral
-    # 1 -- increasing
-    # 2 -- decreasing
+    # 1 -- decreasing
+    # 2 -- increasing
     is_increasing = 0
     for i in range(1, len(arr)):
-        if prev - arr[i] <= 3 and prev - arr[i] > 0:
-            if is_increasing == 0 or is_increasing == 1:
+        diff = prev - arr[i]
+        # Previous > Current == Increasing in range.
+        if diff <= 3 and diff > 0:
+            # We're not already decreasing.
+            if is_increasing != 2:
                 is_increasing = 1
                 prev = arr[i]
             else:
-                if depth == 0:
-                    return check_recursive(arr)
-                else:
-                    return 0
-        elif prev - arr[i] >= -3 and prev - arr[i] < 0:
-            if is_increasing == 0 or is_increasing == 2:
+                return check_fail_case(arr, depth)
+        # Previous < Current = Decreasing in range.
+        elif diff >= -3 and diff < 0:
+            # We're not already increasing.
+            if is_increasing != 1:
                 is_increasing = 2
                 prev = arr[i]
             else:
-                if depth == 0:
-                    return check_recursive(arr)
-                else:
-                    return 0
+                return check_fail_case(arr, depth)
+        # Difference is outside of acceptable range.
         else:
-            if depth == 0:
-                return check_recursive(arr)
-            else:
-                return 0
+            return check_fail_case(arr, depth)
     return 1
 
+# Checks if we should recurse or not, now that we've found an unsafe path.
+def check_fail_case(arr, depth):
+    if PART == 2 and depth == 0:
+        return check_recursive(arr)
+    else:
+        return 0
+
+# Recursively checks if we can remove a number and have a safe path.
 def check_recursive(arr):
     for i in range(0, len(arr)):
         temp = arr.copy()
